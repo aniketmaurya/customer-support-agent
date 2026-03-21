@@ -2,6 +2,8 @@
 
 A futuristic landing page for an AI-powered customer support agent, built with **React** and **Tailwind CSS**.
 
+[Link](https://github.com/apps/celesto-anti-slop) to app.
+
 ## Features
 
 - 🚀 **Hero section** with animated rotating headlines and live statistics
