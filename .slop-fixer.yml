@@ -10,10 +10,10 @@ viewports:
   - { width: 375, height: 812, label: "Mobile" }
 
 # Custom dev server command (default: npm run dev)
-# dev_command: "npm run dev"
+dev_command: "npm run dev"
 
 # Port the dev server listens on (default: 3000)
-# dev_port: 3000
+dev_port: 5173
 
 # Max seconds to wait for the dev server to start (default: 60)
 # startup_timeout: 60
