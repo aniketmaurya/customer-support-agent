@@ -37,13 +37,20 @@ function Navbar() {
           <button className="text-slate-300 hover:text-white text-sm font-medium transition-colors px-4 py-2">
             Sign In
           </button>
-          <button className="bg-gradient-to-r from-cyan-500 to-violet-600 text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:opacity-90 transition-all glow-cyan">
+          <button className="bg-gradient-to-r from-cyan-500 to-violet-600 text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:opacity-90 transition-all">
             Get Started Free
           </button>
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden text-slate-400 hover:text-white" onClick={() => setMenuOpen(!menuOpen)}>
+        <button
+          type="button"
+          className="md:hidden text-slate-400 hover:text-white"
+          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             {menuOpen
               ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -55,7 +62,7 @@ function Navbar() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-slate-950/95 backdrop-blur-xl border-b border-cyan-500/10 px-6 pb-6">
+        <div id="mobile-navigation" className="md:hidden bg-slate-950/95 backdrop-blur-xl border-b border-cyan-500/10 px-6 pb-6">
           {['Features', 'How It Works', 'Testimonials', 'Pricing'].map(item => (
             <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
                className="block py-3 text-slate-400 hover:text-cyan-400 transition-colors duration-200 text-sm font-medium border-b border-slate-800/50"
@@ -126,29 +133,18 @@ function Hero() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-3xl" />
       </div>
 
-      {/* Floating particles */}
-      {[...Array(20)].map((_, i) => (
-        <div key={i} className="absolute w-1 h-1 bg-cyan-400/40 rounded-full"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animation: `float ${4 + Math.random() * 4}s ease-in-out infinite`,
-            animationDelay: `${Math.random() * 4}s`
-          }} />
-      ))}
-
-      <div className="relative max-w-6xl mx-auto px-6 text-center">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 text-center">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full px-4 py-1.5 mb-8 text-cyan-400 text-sm font-medium">
+        <div className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full px-4 py-1.5 mb-6 md:mb-8 text-cyan-400 text-xs sm:text-sm font-medium">
           <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
           AI-Powered Customer Support — Now Live
         </div>
 
         {/* Headline */}
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-tight mb-6">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white leading-tight md:leading-tight mb-6">
           Support That&apos;s{' '}
           <span
-            className={`text-gradient inline-block transition-all duration-400 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}
+            className={`inline-block text-cyan-400 transition-all duration-400 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}
             style={{ transition: 'opacity 0.4s, transform 0.4s' }}
           >
             {words[wordIndex]}
@@ -157,13 +153,13 @@ function Hero() {
           <span className="text-white">Every Single Time</span>
         </h1>
 
-        <p className="text-slate-400 text-xl md:text-2xl max-w-3xl mx-auto mb-12 leading-relaxed">
+        <p className="text-slate-400 text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto mb-10 md:mb-12 leading-relaxed">
           NexusAI resolves <strong className="text-white">90% of customer queries instantly</strong> — no wait times,
           no scripts, just brilliant AI that actually understands your customers.
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-20">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 md:mb-20">
           <button className="bg-gradient-to-r from-cyan-500 to-violet-600 text-white font-bold px-10 py-4 rounded-2xl text-lg hover:opacity-90 hover:scale-105 transition-all duration-200 glow-cyan">
             Start Free Trial →
           </button>
@@ -176,15 +172,15 @@ function Hero() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto">
           {[
             { value: 98, suffix: '%', label: 'Customer Satisfaction' },
             { value: 2, suffix: 's', label: 'Avg. Response Time' },
             { value: 10000, suffix: '+', label: 'Businesses Served' },
             { value: 500, suffix: 'M+', label: 'Queries Resolved' },
           ].map(({ value, suffix, label }) => (
-            <div key={label} className="gradient-border bg-slate-900/50 rounded-2xl p-5 backdrop-blur-sm">
-              <div className="text-3xl md:text-4xl font-black text-gradient-cyan mb-1">
+            <div key={label} className="gradient-border bg-slate-900/50 rounded-2xl p-4 sm:p-5 backdrop-blur-sm">
+              <div className="text-2xl sm:text-3xl md:text-4xl font-black text-gradient-cyan mb-1">
                 <AnimatedCounter target={value} suffix={suffix} />
               </div>
               <div className="text-slate-400 text-sm">{label}</div>
