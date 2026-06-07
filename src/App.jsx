@@ -1,5 +1,21 @@
 import { useState, useEffect, useRef } from 'react'
 
+function BrandMark({ className = '' }) {
+  return (
+    <div className={`flex items-center justify-center rounded-xl border border-white/10 bg-zinc-900 text-zinc-100 ${className}`}>
+      <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path
+          d="M6.5 18V6l11 12V6"
+          stroke="currentColor"
+          strokeWidth="2.2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </div>
+  )
+}
+
 // ─── Navbar ────────────────────────────────────────────────────────────────
 function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -12,14 +28,10 @@ function Navbar() {
   }, [])
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/90 backdrop-blur-xl border-b border-cyan-500/10' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-zinc-950/90 backdrop-blur-xl border-b border-white/10' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-violet-600 flex items-center justify-center glow-cyan">
-            <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
-            </svg>
-          </div>
+          <BrandMark className="w-9 h-9" />
           <span className="text-xl font-bold text-white tracking-tight">NexusAI</span>
         </div>
 
@@ -27,7 +39,7 @@ function Navbar() {
         <div className="hidden md:flex items-center gap-8">
           {['Features', 'How It Works', 'Testimonials', 'Pricing'].map(item => (
             <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
-               className="text-slate-400 hover:text-cyan-400 transition-colors duration-200 text-sm font-medium">
+               className="text-slate-400 hover:text-white transition-colors duration-200 text-sm font-medium">
               {item}
             </a>
           ))}
@@ -37,13 +49,20 @@ function Navbar() {
           <button className="text-slate-300 hover:text-white text-sm font-medium transition-colors px-4 py-2">
             Sign In
           </button>
-          <button className="bg-gradient-to-r from-cyan-500 to-violet-600 text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:opacity-90 transition-all glow-cyan">
+          <button className="bg-amber-400 text-zinc-950 text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-amber-300 transition-colors">
             Get Started Free
           </button>
         </div>
 
         {/* Mobile Menu Button */}
-        <button className="md:hidden text-slate-400 hover:text-white" onClick={() => setMenuOpen(!menuOpen)}>
+        <button
+          type="button"
+          className="md:hidden text-slate-400 hover:text-white"
+          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             {menuOpen
               ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -55,15 +74,15 @@ function Navbar() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-slate-950/95 backdrop-blur-xl border-b border-cyan-500/10 px-6 pb-6">
+        <div id="mobile-navigation" className="md:hidden bg-zinc-950/95 backdrop-blur-xl border-b border-white/10 px-6 pb-6">
           {['Features', 'How It Works', 'Testimonials', 'Pricing'].map(item => (
             <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
-               className="block py-3 text-slate-400 hover:text-cyan-400 transition-colors duration-200 text-sm font-medium border-b border-slate-800/50"
+               className="block py-3 text-slate-400 hover:text-white transition-colors duration-200 text-sm font-medium border-b border-slate-800/50"
                onClick={() => setMenuOpen(false)}>
               {item}
             </a>
           ))}
-          <button className="mt-4 w-full bg-gradient-to-r from-cyan-500 to-violet-600 text-white text-sm font-semibold px-5 py-3 rounded-xl">
+          <button className="mt-4 w-full bg-amber-400 text-zinc-950 text-sm font-semibold px-5 py-3 rounded-xl hover:bg-amber-300 transition-colors">
             Get Started Free
           </button>
         </div>
@@ -118,37 +137,25 @@ function Hero() {
   }, [words.length])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg pt-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
       {/* Background glows */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl animate-pulse-slow" style={{animationDelay:'2s'}} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-white/4 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-amber-300/6 rounded-full blur-3xl" />
       </div>
 
-      {/* Floating particles */}
-      {[...Array(20)].map((_, i) => (
-        <div key={i} className="absolute w-1 h-1 bg-cyan-400/40 rounded-full"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animation: `float ${4 + Math.random() * 4}s ease-in-out infinite`,
-            animationDelay: `${Math.random() * 4}s`
-          }} />
-      ))}
-
-      <div className="relative max-w-6xl mx-auto px-6 text-center">
+      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 text-center">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full px-4 py-1.5 mb-8 text-cyan-400 text-sm font-medium">
-          <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
+        <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 mb-6 md:mb-8 text-amber-300 text-xs sm:text-sm font-medium">
+          <span className="w-2 h-2 bg-amber-300 rounded-full animate-pulse" />
           AI-Powered Customer Support — Now Live
         </div>
 
         {/* Headline */}
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-tight mb-6">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white leading-tight md:leading-tight mb-6">
           Support That&apos;s{' '}
           <span
-            className={`text-gradient inline-block transition-all duration-400 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}
+            className={`inline-block text-amber-300 font-extrabold transition-all duration-400 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-2'}`}
             style={{ transition: 'opacity 0.4s, transform 0.4s' }}
           >
             {words[wordIndex]}
@@ -157,18 +164,18 @@ function Hero() {
           <span className="text-white">Every Single Time</span>
         </h1>
 
-        <p className="text-slate-400 text-xl md:text-2xl max-w-3xl mx-auto mb-12 leading-relaxed">
+        <p className="text-slate-400 text-lg sm:text-xl md:text-2xl max-w-3xl mx-auto mb-10 md:mb-12 leading-relaxed">
           NexusAI resolves <strong className="text-white">90% of customer queries instantly</strong> — no wait times,
           no scripts, just brilliant AI that actually understands your customers.
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-20">
-          <button className="bg-gradient-to-r from-cyan-500 to-violet-600 text-white font-bold px-10 py-4 rounded-2xl text-lg hover:opacity-90 hover:scale-105 transition-all duration-200 glow-cyan">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16 md:mb-20">
+          <button className="bg-amber-400 text-zinc-950 font-bold px-10 py-4 rounded-2xl text-lg hover:bg-amber-300 hover:scale-105 transition-all duration-200">
             Start Free Trial →
           </button>
           <button className="bg-white/5 border border-white/10 text-white font-semibold px-10 py-4 rounded-2xl text-lg hover:bg-white/10 transition-all duration-200 backdrop-blur-sm flex items-center justify-center gap-2">
-            <svg className="w-5 h-5 text-cyan-400" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-5 h-5 text-amber-300" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
             </svg>
             Watch Demo
@@ -176,15 +183,15 @@ function Hero() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto">
           {[
             { value: 98, suffix: '%', label: 'Customer Satisfaction' },
             { value: 2, suffix: 's', label: 'Avg. Response Time' },
             { value: 10000, suffix: '+', label: 'Businesses Served' },
             { value: 500, suffix: 'M+', label: 'Queries Resolved' },
           ].map(({ value, suffix, label }) => (
-            <div key={label} className="gradient-border bg-slate-900/50 rounded-2xl p-5 backdrop-blur-sm">
-              <div className="text-3xl md:text-4xl font-black text-gradient-cyan mb-1">
+            <div key={label} className="gradient-border bg-slate-900/50 rounded-2xl p-4 sm:p-5 backdrop-blur-sm">
+              <div className="text-2xl sm:text-3xl md:text-4xl font-black text-amber-200 mb-1">
                 <AnimatedCounter target={value} suffix={suffix} />
               </div>
               <div className="text-slate-400 text-sm">{label}</div>
@@ -670,11 +677,7 @@ function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-10 mb-16">
           <div className="col-span-2">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyan-400 to-violet-600 flex items-center justify-center glow-cyan">
-                <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
-                </svg>
-              </div>
+              <BrandMark className="w-9 h-9" />
               <span className="text-xl font-bold text-white">NexusAI</span>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs">
@@ -691,7 +694,7 @@ function Footer() {
               <ul className="space-y-3">
                 {links.map(link => (
                   <li key={link}>
-                    <a href="#" className="text-slate-400 hover:text-cyan-400 transition-colors text-sm">{link}</a>
+                    <a href="#" className="text-slate-400 hover:text-white transition-colors text-sm">{link}</a>
                   </li>
                 ))}
               </ul>
@@ -714,7 +717,7 @@ function Footer() {
 // ─── App ────────────────────────────────────────────────────────────────────
 export default function App() {
   return (
-    <div className="bg-slate-950 min-h-screen">
+    <div className="bg-[#0a0a0a] min-h-screen">
       <Navbar />
       <Hero />
       <Features />
