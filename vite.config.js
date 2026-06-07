@@ -6,8 +6,8 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
-    host: "0.0.0.0",
-    port: 8000,
-    allowedHosts: ["*.celesto.dev"],
-  },
+  host: "0.0.0.0",
+  port: 8000,
+  allowedHosts: [".celesto.dev"],
+},
 })
