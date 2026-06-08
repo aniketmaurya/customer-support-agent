@@ -22,6 +22,8 @@ A futuristic landing page for an AI-powered customer support agent, built with *
 ## Getting Started
 
 ```bash
+git clone https://github.com/aniketmaurya/customer-support-agent.git
+cd customer-support-agent
 npm install
 npm run dev
 ```
